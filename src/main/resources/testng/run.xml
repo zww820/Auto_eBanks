@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="5" preserve-order="true">
+    <test name="zxkh" >
+        <classes>
+            <class name="org.audience.controller.StartPageAction"/>
+            <class name="org.audience.controller.HomePageAction"/>
+            <class name="org.audience.controller.ZxkhPageAction"/>
+        </classes>
+    </test>
+</suite>
