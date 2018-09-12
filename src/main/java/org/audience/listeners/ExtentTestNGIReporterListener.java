@@ -7,8 +7,6 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.TestAttribute;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
-import com.aventstack.extentreports.reporter.configuration.Theme;
-import org.apache.commons.lang3.StringUtils;
 import org.audience.utils.PropertyPlaceholderConfigurer;
 import org.testng.*;
 import org.testng.xml.XmlSuite;
@@ -22,13 +20,89 @@ import java.util.*;
  * time:9:56
  */
 public class ExtentTestNGIReporterListener implements IReporter {
-    private static final String OUTPUT_FOLDER = PropertyPlaceholderConfigurer.getProperty("OUTPUT_FOLDER");
-    private static final String FILE_NAME = PropertyPlaceholderConfigurer.getProperty("FILE_NAME");
+    private static final String OUTPUT_FOLDER = "test-output/";
+    private static final String FILE_NAME = "Extent.html";
 
     private ExtentReports extent;
 
     @Override
-    public void generateReport(List<XmlSuite> list, List<ISuite> list1, String s) {
+    public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
+        init();
+
+        boolean createSuiteNode = false;
+        if(suites.size()>1){
+            createSuiteNode=true;
+        }
+        for (ISuite suite : suites) {
+            Map<String, ISuiteResult>  result = suite.getResults();
+            //如果suite里面没有任何用例，直接跳过，不在报告里生成
+            if(result.size()==0){
+                continue;
+            }
+            //统计suite下的成功、失败、跳过的总用例数
+            int suiteFailSize=0;
+            int suitePassSize=0;
+            int suiteSkipSize=0;
+            ExtentTest suiteTest=null;
+            //存在多个suite的情况下，在报告中将同一个一个suite的测试结果归为一类，创建一级节点。
+            if(createSuiteNode){
+                suiteTest = extent.createTest(suite.getName()).assignCategory(suite.getName());
+            }
+            boolean createSuiteResultNode = false;
+            if(result.size()>1){
+                createSuiteResultNode=true;
+            }
+            for (ISuiteResult r : result.values()) {
+                ExtentTest resultNode;
+                ITestContext context = r.getTestContext();
+                if(createSuiteResultNode){
+                    //没有创建suite的情况下，将在SuiteResult的创建为一级节点，否则创建为suite的一个子节点。
+                    if( null == suiteTest){
+                        resultNode = extent.createTest(r.getTestContext().getName());
+                    }else{
+                        resultNode = suiteTest.createNode(r.getTestContext().getName());
+                    }
+                }else{
+                    resultNode = suiteTest;
+                }
+                if(resultNode != null){
+                    resultNode.getModel().setName(suite.getName()+" : "+r.getTestContext().getName());
+                    if(resultNode.getModel().hasCategory()){
+                        resultNode.assignCategory(r.getTestContext().getName());
+                    }else{
+                        resultNode.assignCategory(suite.getName(),r.getTestContext().getName());
+                    }
+                    resultNode.getModel().setStartTime(r.getTestContext().getStartDate());
+                    resultNode.getModel().setEndTime(r.getTestContext().getEndDate());
+                    //统计SuiteResult下的数据
+                    int passSize = r.getTestContext().getPassedTests().size();
+                    int failSize = r.getTestContext().getFailedTests().size();
+                    int skipSize = r.getTestContext().getSkippedTests().size();
+                    suitePassSize += passSize;
+                    suiteFailSize += failSize;
+                    suiteSkipSize += skipSize;
+                    if(failSize>0){
+                        resultNode.getModel().setStatus(Status.FAIL);
+                    }
+                    resultNode.getModel().setDescription(String.format("Pass: %s ; Fail: %s ; Skip: %s ;",passSize,failSize,skipSize));
+                }
+                buildTestNodes(resultNode,context.getFailedTests(), Status.FAIL);
+                buildTestNodes(resultNode,context.getSkippedTests(), Status.SKIP);
+                buildTestNodes(resultNode,context.getPassedTests(), Status.PASS);
+            }
+            if(suiteTest!= null){
+                suiteTest.getModel().setDescription(String.format("Pass: %s ; Fail: %s ; Skip: %s ;",suitePassSize,suiteFailSize,suiteSkipSize));
+                if(suiteFailSize>0){
+                    suiteTest.getModel().setStatus(Status.FAIL);
+                }
+            }
+
+        }
+//        for (String s : Reporter.getOutput()) {
+//            extent.setTestRunnerOutput(s);
+//        }
+
+        extent.flush();
 
     }
 
