@@ -1,8 +1,9 @@
 package org.audience.listeners;
 
 import io.appium.java_client.events.api.mobile.ContextEventListener;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -11,7 +12,7 @@ import org.openqa.selenium.WebDriver;
  * time:16:43
  */
 public class ContextListener implements ContextEventListener {
-    Logger logger= Logger.getLogger(ContextListener.class);
+    Logger logger= LoggerFactory.getLogger(ContextListener.class);
     @Override
     public void beforeSwitchingToContext(WebDriver webDriver, String s) {
         logger.info("准备切换到："+s);

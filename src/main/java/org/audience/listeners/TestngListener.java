@@ -33,6 +33,5 @@ public class TestngListener extends TestListenerAdapter{
 
     public void onStart(ITestContext iTestContext){
         super.onStart(iTestContext);
-
     }
 }

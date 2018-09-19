@@ -5,7 +5,6 @@ import io.appium.java_client.MobileDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.audience.factory.AppDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -13,6 +12,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -30,10 +31,11 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  */
 @Component
 public class Components {
-    static Logger logger=Logger.getLogger(Components.class);
+    static Logger logger= LoggerFactory.getLogger(Components.class);
 
     private static int MAX_TIMEOUT_SECONDS=30;
 
+//    判断AppElement是否存在
     public static boolean isExsitAPPElement(MobileElement mobileElement){
         try{
             if(null == mobileElement){
@@ -45,6 +47,7 @@ public class Components {
         return true;
     }
 
+//    判断WebElement是否存在
     public static boolean isExsitWEBElement(WebElement webElement){
         try{
             if(null == webElement){
@@ -56,6 +59,18 @@ public class Components {
         return true;
     }
 
+    public static boolean isEnabledWEBElement(WebElement webElement){
+        try {
+            if(!webElement.isEnabled()){
+                return false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+//    验证当前H5页面title
     public static boolean currentWebtitle(AppiumDriver appiumDriver, String title){
         try {
             if(StringUtils.isEmpty(appiumDriver.getTitle())){
@@ -71,6 +86,7 @@ public class Components {
         return true;
     }
 
+//    切换到最新的H5页面
     public static void switchToLastWebView(MobileDriver mobileDriver) throws Exception {
         Set<String> contextNames= mobileDriver.getContextHandles();
         List<String> webViewContextNames = contextNames

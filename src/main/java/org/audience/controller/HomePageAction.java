@@ -2,12 +2,13 @@ package org.audience.controller;
 
 import io.appium.java_client.MobileCommand;
 import io.appium.java_client.MobileElement;
-import org.apache.log4j.Logger;
 import org.audience.enums.Drivers;
 import org.audience.factory.AppDriverFactory;
 import org.audience.model.ZxkhPage;
 import org.audience.services.HomePageService;
 import org.audience.utils.Components;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -21,9 +22,8 @@ import java.util.Set;
  * date:2018/9/7
  * time:21:11
  */
-@ContextConfiguration(locations = {"classpath*:application.xml"})
 public class HomePageAction extends AbstractTestNGSpringContextTests {
-    Logger logger=Logger.getLogger(HomePageAction.class);
+    Logger logger= LoggerFactory.getLogger(HomePageAction.class);
 
     @Autowired
     private HomePageService homePageService;

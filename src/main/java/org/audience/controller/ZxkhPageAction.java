@@ -22,7 +22,6 @@ import org.testng.asserts.Assertion;
  * date:2018/9/8
  * time:16:14
  */
-@ContextConfiguration(locations = {"classpath*:application.xml"})
 public class ZxkhPageAction extends AbstractTestNGSpringContextTests {
     Logger logger=Logger.getLogger(ZxkhPageAction.class);
 
@@ -58,7 +57,11 @@ public class ZxkhPageAction extends AbstractTestNGSpringContextTests {
         system_androidService.textview_textview_xc();
         system_androidService.imageview_imageview_yyzz();
         system_androidService.textview_textview_qd();
+
         Components.switchToLastWebView(AppDriverFactory.getDriverInstance(Drivers.CHROME));
+        zxkhPageService.input_input_xinyongdaima();
+        zxkhPageService.input_input_qiyemingcheng();
+        Assert.assertTrue(Components.isEnabledWEBElement(zxkhPage.getButton_xyb()));
         zxkhPageService.click_button_xyb();
     }
 

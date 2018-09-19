@@ -1,8 +1,9 @@
 package org.audience.listeners;
 
 import io.appium.java_client.events.api.general.AppiumWebDriverEventListener;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * time:16:46
  */
 public class AppiumWebDriverListener implements AppiumWebDriverEventListener{
-    Logger logger=Logger.getLogger(AppiumWebDriverListener.class);
+    Logger logger= LoggerFactory.getLogger(AppiumWebDriverListener.class);
 
     private By by;
 

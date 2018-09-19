@@ -1,12 +1,13 @@
 package org.audience.impl;
 
-import org.apache.log4j.Logger;
 import org.audience.model.System_Android;
 import org.audience.model.ZxkhPage;
 import org.audience.model.Zxkh_yyzzPage;
 import org.audience.services.ZxkhPageService;
 import org.audience.utils.ComponentsAction;
 import org.audience.utils.RandomParams;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ZxkhPageServiceImpl implements ZxkhPageService {
-    Logger logger=Logger.getLogger(ZxkhPageServiceImpl.class);
+    Logger logger= LoggerFactory.getLogger(ZxkhPageServiceImpl.class);
 
     @Autowired
     ZxkhPage zxkhPage;
@@ -77,6 +78,16 @@ public class ZxkhPageServiceImpl implements ZxkhPageService {
     @Override
     public void label_label_yyzzt() {
         zxkh_yyzzPage.getLabel_yyzzt().click();
+    }
+
+    @Override
+    public void input_input_xinyongdaima() {
+        ComponentsAction.H5_inputText(zxkh_yyzzPage.getInput_xinyongdaima(),"91430602MA4PTMY60F");
+    }
+
+    @Override
+    public void input_input_qiyemingcheng() {
+        ComponentsAction.H5_inputText(zxkh_yyzzPage.getInput_qiyemingcheng(),"岳阳金鑫科技有限公司");
     }
 
 }

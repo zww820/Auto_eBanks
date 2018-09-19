@@ -44,8 +44,8 @@ public class AppDriverFactory {
                 }
             }
         }
-//        appiumDriver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);
-        appiumDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//        appiumDriver.manage().timeouts().pageLoadTimeout(30,TimeUnit.SECONDS);
+        appiumDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         return appiumDriver;
     }
 

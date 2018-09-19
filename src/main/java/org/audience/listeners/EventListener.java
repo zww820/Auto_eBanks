@@ -1,9 +1,10 @@
 package org.audience.listeners;
 
 import io.appium.java_client.events.api.general.ElementEventListener;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * author:Audience
@@ -11,7 +12,7 @@ import org.openqa.selenium.WebElement;
  * time:16:27
  */
 public class EventListener implements ElementEventListener {
-    Logger logger=Logger.getLogger(EventListener.class);
+    Logger logger= LoggerFactory.getLogger(EventListener.class);
 
     @Override
     public void beforeClickOn(WebElement webElement, WebDriver webDriver) {

@@ -24,7 +24,11 @@ public class Zxkh_yyzzPage {
     @FindBy(xpath = "//label")
     WebElement label_yyzzt;
 
+    @FindBy(xpath = "//input[@placeholder='请输入统一社会信用代码']")
+    WebElement input_xinyongdaima;
 
+    @FindBy(xpath = "//input[@placeholder='请输入企业名称']")
+    WebElement input_qiyemingcheng;
 
     public Zxkh_yyzzPage() throws Exception {
         PageFactory.initElements(new AppiumFieldDecorator(AppDriverFactory.getDriverInstance(Drivers.CHROME)),this);
@@ -38,5 +42,11 @@ public class Zxkh_yyzzPage {
         return label_yyzzt;
     }
 
+    public WebElement getInput_xinyongdaima() {
+        return input_xinyongdaima;
+    }
 
+    public WebElement getInput_qiyemingcheng() {
+        return input_qiyemingcheng;
+    }
 }

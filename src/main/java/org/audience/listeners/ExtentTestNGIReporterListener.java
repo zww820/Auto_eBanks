@@ -7,7 +7,6 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.TestAttribute;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
-import org.audience.utils.PropertyPlaceholderConfigurer;
 import org.testng.*;
 import org.testng.xml.XmlSuite;
 
@@ -108,6 +107,7 @@ public class ExtentTestNGIReporterListener implements IReporter {
 
     private void init() {
         File reportDir=new File(OUTPUT_FOLDER);
+//        判断文件夹是否存在，不存在即创建
         if(!reportDir.exists() && !reportDir.isDirectory()){
             reportDir.mkdir();
         }

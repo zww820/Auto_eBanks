@@ -26,4 +26,8 @@ public interface ZxkhPageService {
     public void div_div_hqyzm();
 
     public void label_label_yyzzt();
+
+    public void input_input_xinyongdaima();
+
+    public void input_input_qiyemingcheng();
 }

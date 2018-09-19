@@ -1,6 +1,7 @@
 package org.audience.utils;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.testng.annotations.Test;
 
@@ -13,7 +14,7 @@ import java.util.Random;
  */
 
 public class RandomParams {
-    static Logger logger=Logger.getLogger(RandomParams.class);
+    static Logger logger= LoggerFactory.getLogger(RandomParams.class);
 
     private static String[] telFirst = "130,131,132,133,134,135,136,137,138,139,150,151,152,157,158,159,155,156,153,180,188".split(",");
 
